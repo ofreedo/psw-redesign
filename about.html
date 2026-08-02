@@ -190,6 +190,17 @@
     .client-grid{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr;}
   }
+
+  /* ---- Fade-in reveal ---- */
+  .fade-in{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .fade-in.in-view{opacity:1;transform:translateY(0);}
+  .cat-hero.fade-in{transform:translateY(14px);transition:opacity 1s ease, transform 1s ease;}
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -258,7 +269,7 @@
   <a href="index.html">Home</a><span>/</span>About
 </div>
 
-<section class="cat-hero">
+<section class="cat-hero fade-in">
   <div class="wrap cat-hero-grid">
     <div>
       <div class="eyebrow">About PS Woodworking</div>
@@ -280,7 +291,7 @@
   </div>
 </section>
 
-<section class="story">
+<section class="story fade-in">
   <div class="wrap story-grid">
     <div class="story-photo" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 341.jpg');"></div>
     <div class="story-text">
@@ -292,7 +303,7 @@
   </div>
 </section>
 
-<section class="story" style="padding-top:0;">
+<section class="story fade-in" style="padding-top:0;">
   <div class="wrap story-grid rev">
     <div class="story-photo" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 392.jpg');"></div>
     <div class="story-text">
@@ -309,13 +320,13 @@
   </div>
 </section>
 
-<section class="divider-band">
+<section class="divider-band fade-in">
   <div class="wrap">
     <p>"Whether you're an architect, designer, contractor, home or business owner with working plans or just an idea, PS Woodworking can help from the drawing board to finished product."</p>
   </div>
 </section>
 
-<section class="clients" id="clients">
+<section class="clients fade-in" id="clients">
   <div class="wrap">
     <div class="eyebrow">Notable Clients</div>
     <h2 style="font-size:clamp(26px,3vw,34px);color:var(--paper);margin-top:14px;line-height:1.2;max-width:640px;">Nearly four decades of work for architects, restaurateurs, vintners, and institutions.</h2>
@@ -341,7 +352,7 @@
   </div>
 </section>
 
-<section class="testimonial" id="testimonials">
+<section class="testimonial fade-in" id="testimonials">
   <div class="wrap">
     <div class="quote-mark">"</div>
     <blockquote>I have called on PS Woodworking for several projects over the years. No matter how big or how small the job, they always over deliver on quality, professionalism and service. Philip is the Yoda of woodworking.</blockquote>
@@ -349,7 +360,7 @@
   </div>
 </section>
 
-<section class="cta-band" id="contact">
+<section class="cta-band fade-in" id="contact">
   <div class="wrap">
     <div class="eyebrow">Start a Project</div>
     <h2>Have a vision? Let's put it in wood.</h2>
@@ -433,6 +444,28 @@
       workToggle.classList.toggle('open');
       subnav.classList.toggle('open');
     });
+  })();
+
+  (function(){
+    var hero = document.querySelector('.cat-hero.fade-in');
+    if (hero) requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add('in-view'); });
+    });
+
+    var sections = document.querySelectorAll('.fade-in:not(.cat-hero)');
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(function(el){ observer.observe(el); });
   })();
 </script>
 

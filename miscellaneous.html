@@ -226,6 +226,17 @@
     .mosaic{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr;}
   }
+
+  /* ---- Fade-in reveal ---- */
+  .fade-in{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .fade-in.in-view{opacity:1;transform:translateY(0);}
+  .cat-hero.fade-in{transform:translateY(14px);transition:opacity 1s ease, transform 1s ease;}
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -294,7 +305,7 @@
   <a href="index.html">Home</a><span>/</span><a href="index.html#work">Our Work</a><span>/</span>Miscellaneous
 </div>
 
-<section class="cat-hero">
+<section class="cat-hero fade-in">
   <div class="wrap cat-hero-grid">
     <div>
       <div class="eyebrow">Category 11 — Miscellaneous</div>
@@ -316,7 +327,7 @@
   </div>
 </section>
 
-<section class="editorial" id="gallery">
+<section class="editorial fade-in" id="gallery">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Featured Transformation</div>
@@ -373,7 +384,7 @@
       <div class="eyebrow">More From This Category</div>
     </div>
     <div class="mosaic">
-      <div class="mtile" style="background-image:url('downloaded_images_flat/web.jpg');"><div class="cap">Hutch</div></div>
+      <div class="mtile" style="background-image:url('downloaded_images_flat/ps_2011_02_07___20_40_07.jpg');"><div class="cap">Fireplace mantel</div></div>
       <div class="mtile" style="background-image:url('downloaded_images_flat/web_1.jpg');"><div class="cap">Display cabinet</div></div>
       <div class="mtile" style="background-image:url('downloaded_images_flat/web_6.jpg');"><div class="cap">Custom grills</div></div>
       <div class="mtile" style="background-image:url('downloaded_images_flat/web_3.jpg');"><div class="cap">Furniture replication pieces</div></div>
@@ -381,7 +392,7 @@
   </div>
 </section>
 
-<section class="process">
+<section class="process fade-in">
   <div class="wrap process-grid">
     <div>
       <div class="eyebrow">How It Works</div>
@@ -409,7 +420,7 @@
   </div>
 </section>
 
-<section class="testimonial">
+<section class="testimonial fade-in">
   <div class="wrap">
     <div class="quote-mark">"</div>
     <blockquote>Philip is not only a talented and conscientious craftsman, he is professional, honest and fair. It was a real pleasure working with Philip, and we would highly recommend him for any custom woodworking projects.</blockquote>
@@ -417,7 +428,7 @@
   </div>
 </section>
 
-<section class="more-cats">
+<section class="more-cats fade-in">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Explore More</div>
@@ -432,7 +443,7 @@
   </div>
 </section>
 
-<section class="cta-band" id="contact">
+<section class="cta-band fade-in" id="contact">
   <div class="wrap">
     <div class="eyebrow">Start a Project</div>
     <h2>Have an odd one? Let's put it in wood.</h2>
@@ -516,6 +527,28 @@
       workToggle.classList.toggle('open');
       subnav.classList.toggle('open');
     });
+  })();
+
+  (function(){
+    var hero = document.querySelector('.cat-hero.fade-in');
+    if (hero) requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add('in-view'); });
+    });
+
+    var sections = document.querySelectorAll('.fade-in:not(.cat-hero)');
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(function(el){ observer.observe(el); });
   })();
 </script>
 

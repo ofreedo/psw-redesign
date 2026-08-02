@@ -214,6 +214,17 @@
     .more-grid{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr;}
   }
+
+  /* ---- Fade-in reveal ---- */
+  .fade-in{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .fade-in.in-view{opacity:1;transform:translateY(0);}
+  .cat-hero.fade-in{transform:translateY(14px);transition:opacity 1s ease, transform 1s ease;}
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -282,7 +293,7 @@
   <a href="index.html">Home</a><span>/</span><a href="index.html#work">Our Work</a><span>/</span>Balustrades
 </div>
 
-<section class="cat-hero">
+<section class="cat-hero fade-in">
   <div class="wrap cat-hero-grid">
     <div>
       <div class="eyebrow">Category 09 — Balustrades &amp; Railings</div>
@@ -304,7 +315,7 @@
   </div>
 </section>
 
-<section class="editorial" id="gallery">
+<section class="editorial fade-in" id="gallery">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Featured Transformation</div>
@@ -335,7 +346,7 @@
   </div>
 </section>
 
-<section class="process">
+<section class="process fade-in">
   <div class="wrap process-grid">
     <div>
       <div class="eyebrow">How It Works</div>
@@ -363,7 +374,7 @@
   </div>
 </section>
 
-<section class="testimonial">
+<section class="testimonial fade-in">
   <div class="wrap">
     <div class="quote-mark">"</div>
     <blockquote>Two years ago, Philip installed a wooden railing in our home, and it is just beautiful! His attention to detail was incredible, and the job was done on time, and came in at the price he quoted. I would recommend Philip's work to anyone interested in a woodworking project.</blockquote>
@@ -371,7 +382,7 @@
   </div>
 </section>
 
-<section class="more-cats">
+<section class="more-cats fade-in">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Explore More</div>
@@ -386,7 +397,7 @@
   </div>
 </section>
 
-<section class="cta-band" id="contact">
+<section class="cta-band fade-in" id="contact">
   <div class="wrap">
     <div class="eyebrow">Start a Project</div>
     <h2>Have a stair or railing in mind? Let's put it in wood.</h2>
@@ -470,6 +481,28 @@
       workToggle.classList.toggle('open');
       subnav.classList.toggle('open');
     });
+  })();
+
+  (function(){
+    var hero = document.querySelector('.cat-hero.fade-in');
+    if (hero) requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add('in-view'); });
+    });
+
+    var sections = document.querySelectorAll('.fade-in:not(.cat-hero)');
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(function(el){ observer.observe(el); });
   })();
 </script>
 

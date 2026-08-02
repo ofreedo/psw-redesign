@@ -209,6 +209,17 @@
   @media (max-width:600px){
     .foot-grid{grid-template-columns:1fr;}
   }
+
+  /* ---- Fade-in reveal ---- */
+  .fade-in{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .fade-in.in-view{opacity:1;transform:translateY(0);}
+  .cat-hero.fade-in{transform:translateY(14px);transition:opacity 1s ease, transform 1s ease;}
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -277,7 +288,7 @@
   <a href="index.html">Home</a><span>/</span>Contact
 </div>
 
-<section class="cat-hero">
+<section class="cat-hero fade-in">
   <div class="wrap">
     <div class="eyebrow">Get In Touch</div>
     <h1>Let's talk about your project.</h1>
@@ -287,7 +298,7 @@
   </div>
 </section>
 
-<section class="contact-section">
+<section class="contact-section fade-in">
   <div class="wrap contact-grid">
 
     <div class="info-col">
@@ -391,7 +402,7 @@
   </div>
 </section>
 
-<section class="service-area">
+<section class="service-area fade-in">
   <div class="wrap">
     <div>
       <h3>Serving Napa &amp; Sonoma Valley</h3>
@@ -480,6 +491,28 @@
       workToggle.classList.toggle('open');
       subnav.classList.toggle('open');
     });
+  })();
+
+  (function(){
+    var hero = document.querySelector('.cat-hero.fade-in');
+    if (hero) requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add('in-view'); });
+    });
+
+    var sections = document.querySelectorAll('.fade-in:not(.cat-hero)');
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(function(el){ observer.observe(el); });
   })();
 </script>
 

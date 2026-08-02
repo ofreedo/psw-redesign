@@ -306,6 +306,17 @@
     .mosaic{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr;}
   }
+
+  /* ---- Fade-in reveal ---- */
+  .fade-in{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .fade-in.in-view{opacity:1;transform:translateY(0);}
+  .cat-hero.fade-in{transform:translateY(14px);transition:opacity 1s ease, transform 1s ease;}
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{opacity:1;transform:none;transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -374,7 +385,7 @@
   <a href="index.html">Home</a><span>/</span><a href="index.html#work">Our Work</a><span>/</span>Kitchens
 </div>
 
-<section class="cat-hero">
+<section class="cat-hero fade-in">
   <div class="wrap cat-hero-grid">
     <div>
       <div class="eyebrow">Category 01 — Kitchens</div>
@@ -396,7 +407,7 @@
   </div>
 </section>
 
-<section class="editorial" id="gallery">
+<section class="editorial fade-in" id="gallery">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Selected Projects</div>
@@ -405,7 +416,7 @@
 
     <div class="egrid">
       <div class="erow">
-        <div class="ephoto" style="background-image:url('downloaded_images_flat/AAA003.jpg');"></div>
+        <div class="ephoto" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 031.jpg');"></div>
         <div class="etext">
           <div class="index">01 / St. Helena</div>
           <h3>Kitchen makeover utilizing existing cabinets</h3>
@@ -448,7 +459,7 @@
   </div>
 </section>
 
-<section class="process">
+<section class="process fade-in">
   <div class="wrap process-grid">
     <div>
       <div class="eyebrow">How It Works</div>
@@ -476,7 +487,7 @@
   </div>
 </section>
 
-<section class="testimonial">
+<section class="testimonial fade-in">
   <div class="wrap">
     <div class="quote-mark">"</div>
     <blockquote>Working with Philip was a good experience. The work was done in a timely manner, at a satisfying cost and in a most professional way. Not only was it enjoyable to have them on the job, but the results were even better than we could have imagined.</blockquote>
@@ -484,7 +495,7 @@
   </div>
 </section>
 
-<section class="more-cats">
+<section class="more-cats fade-in">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Explore More</div>
@@ -499,7 +510,7 @@
   </div>
 </section>
 
-<section class="cta-band" id="contact">
+<section class="cta-band fade-in" id="contact">
   <div class="wrap">
     <div class="eyebrow">Start a Project</div>
     <h2>Have a kitchen in mind? Let's put it in wood.</h2>
@@ -583,6 +594,28 @@
       workToggle.classList.toggle('open');
       subnav.classList.toggle('open');
     });
+  })();
+
+  (function(){
+    var hero = document.querySelector('.cat-hero.fade-in');
+    if (hero) requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add('in-view'); });
+    });
+
+    var sections = document.querySelectorAll('.fade-in:not(.cat-hero)');
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(function(el){ observer.observe(el); });
   })();
 </script>
 
