@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Vanities — PS Woodworking, Napa Valley</title>
+<link rel="icon" type="image/png" href="downloaded_images_flat/new-logo-v2.png">
+<meta property="og:title" content="Custom Vanities — PS Woodworking, Napa Valley">
+<meta property="og:description" content="Furniture-grade bathroom vanities in solid Alder and Maple, built by hand in Napa Valley.">
+<meta property="og:image" content="downloaded_images_flat/new-logo-v2.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171614;
+    --charcoal:#1b1a18;
+    --charcoal-2:#232220;
+    --paper:#f4efe8;
+    --paper-dim:#cfc8bd;
+    --rust:#a8592f;
+    --rust-bright:#c66a3a;
+    --brass:#b8925a;
+    --line:rgba(244,239,232,0.14);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--charcoal);color:var(--paper);font-family:'Inter',sans-serif;font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  .eyebrow{text-transform:uppercase;letter-spacing:0.16em;font-size:12px;font-weight:600;color:var(--brass);}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(27,26,24,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;max-width:var(--maxw);margin:0 auto;}
+  .logo{
+    display:flex;align-items:center;
+  }
+  .logo img{height:74px;width:auto;display:block;}
+  .navlinks{display:flex;gap:36px;font-size:14px;font-weight:500;list-style:none;margin:0;padding:0;}
+  .navlinks a{color:var(--paper-dim);transition:color .15s;}
+  .navlinks a:hover, .navlinks a.active{color:var(--paper);}
+  .nav-cta{border:1px solid var(--brass);color:var(--paper);padding:10px 20px;font-size:13px;font-weight:600;letter-spacing:0.03em;border-radius:2px;transition:background .15s, color .15s;white-space:nowrap;}
+  .nav-cta:hover{background:var(--brass);color:var(--ink);}
+  .navmenu-mobile{display:none;font-size:24px;color:var(--paper);background:none;border:none;cursor:pointer;}
+
+  /* ---- Our Work dropdown (desktop) ---- */
+  .nav-dropdown{position:relative;}
+  .nav-dropdown>a{display:flex;align-items:center;gap:6px;}
+  .nav-dropdown .caret{font-size:10px;transition:transform .15s;color:var(--paper-dim);}
+  .nav-dropdown:hover .caret, .nav-dropdown:focus-within .caret{transform:rotate(180deg);}
+  .dropdown-panel{
+    position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    margin-top:18px;padding:14px;
+    background:var(--ink);border:1px solid var(--line);border-radius:4px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.45);
+    display:grid;grid-template-columns:repeat(2,180px);gap:2px;
+    opacity:0;visibility:hidden;transform:translateX(-50%) translateY(-6px);
+    transition:opacity .15s, transform .15s, visibility .15s;
+    z-index:60;
+  }
+  .nav-dropdown:hover .dropdown-panel,
+  .nav-dropdown:focus-within .dropdown-panel{
+    opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);
+  }
+  .dropdown-panel a{
+    display:block;padding:10px 12px;font-size:13px;color:var(--paper-dim);
+    border-radius:3px;transition:background .15s, color .15s;
+  }
+  .dropdown-panel a:hover{background:var(--charcoal-2);color:var(--paper);}
+  .dropdown-panel a.active{color:var(--rust-bright);}
+
+  /* ---- Mobile nav panel ---- */
+  .mobile-panel{
+    display:none;
+    position:fixed;top:0;right:0;bottom:0;width:min(320px,84vw);
+    background:var(--ink);border-left:1px solid var(--line);
+    z-index:100;padding:24px;overflow-y:auto;
+    transform:translateX(100%);transition:transform .25s ease;
+  }
+  .mobile-panel.open{transform:translateX(0);}
+  .mobile-scrim{
+    display:none;position:fixed;inset:0;background:rgba(10,9,8,0.6);z-index:90;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .mobile-scrim.open{opacity:1;}
+  .mobile-panel-close{background:none;border:none;color:var(--paper);font-size:24px;cursor:pointer;margin-bottom:24px;}
+  .mobile-links{display:flex;flex-direction:column;gap:4px;}
+  .mobile-links>a{color:var(--paper);font-size:16px;font-weight:500;padding:12px 4px;border-bottom:1px solid var(--line);}
+  .mobile-work-toggle{
+    display:flex;align-items:center;justify-content:space-between;width:100%;
+    background:none;border:none;color:var(--paper);font-size:16px;font-weight:500;
+    padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-family:'Inter',sans-serif;
+  }
+  .mobile-work-toggle .caret{font-size:11px;transition:transform .2s;}
+  .mobile-work-toggle.open .caret{transform:rotate(180deg);}
+  .mobile-subnav{
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .2s ease;
+  }
+  .mobile-subnav.open{grid-template-rows:1fr;}
+  .mobile-subnav-inner{overflow:hidden;}
+  .mobile-subnav a{
+    display:block;padding:10px 4px 10px 16px;font-size:14px;color:var(--paper-dim);
+  }
+  .mobile-subnav a.active{color:var(--rust-bright);}
+  .mobile-cta{margin-top:20px;}
+
+  .breadcrumb{padding:20px 0 0;font-size:13px;color:var(--paper-dim);}
+  .breadcrumb a{color:var(--paper-dim);transition:color .15s;}
+  .breadcrumb a:hover{color:var(--brass);}
+  .breadcrumb span{color:var(--brass);margin:0 8px;}
+
+  .cat-hero{padding:28px 0 64px;border-bottom:1px solid var(--line);}
+  .cat-hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:end;}
+  .cat-hero h1{font-size:clamp(38px,5vw,58px);color:var(--paper);margin-top:14px;line-height:1.05;}
+  .cat-hero-copy p{color:var(--paper-dim);font-size:17px;margin-top:18px;max-width:48ch;}
+  .cat-meta{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap;}
+  .cat-meta .m{font-size:13px;color:var(--paper-dim);}
+  .cat-meta .m b{display:block;color:var(--paper);font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin-bottom:2px;}
+  .cat-hero-side{aspect-ratio:5/4;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:url('downloaded_images_flat/Album-PS woodworking - 392.jpg') center/cover no-repeat;}
+  .hero-actions{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{background:var(--rust);color:var(--paper);padding:15px 30px;font-size:14px;font-weight:600;letter-spacing:0.03em;border-radius:2px;transition:background .15s;display:inline-block;}
+  .btn-primary:hover{background:var(--rust-bright);}
+  .btn-ghost{border:1px solid rgba(244,239,232,0.35);color:var(--paper);padding:15px 30px;font-size:14px;font-weight:600;letter-spacing:0.03em;border-radius:2px;transition:border-color .15s, background .15s;display:inline-block;}
+  .btn-ghost:hover{border-color:var(--paper);background:rgba(244,239,232,0.06);}
+
+  .editorial{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(26px,3vw,34px);color:var(--paper);margin-top:14px;line-height:1.2;}
+
+  /* His & hers pairing feature */
+  .pairing{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .pair-photo{position:relative;aspect-ratio:3/4;border-radius:3px;overflow:hidden;border:1px solid var(--line);background-size:cover;background-position:center;}
+  .pair-photo .tag{position:absolute;top:18px;left:18px;background:rgba(15,14,13,0.72);backdrop-filter:blur(4px);padding:8px 16px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:var(--brass);border-radius:2px;}
+  .pairing-cap{margin-top:24px;max-width:64ch;}
+  .pairing-cap p{color:var(--paper-dim);font-size:16px;}
+
+  .egrid{display:flex;flex-direction:column;gap:88px;margin-top:88px;}
+  .erow{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .erow.rev .ephoto{order:2;}
+  .erow.rev .etext{order:1;}
+  .ephoto{border-radius:3px;overflow:hidden;border:1px solid var(--line);background-size:cover;background-position:center;aspect-ratio:4/3;}
+  .etext .index{font-family:'Fraunces',serif;font-size:14px;color:var(--rust-bright);font-weight:600;letter-spacing:0.05em;}
+  .etext h3{font-size:24px;color:var(--paper);margin-top:12px;line-height:1.3;font-weight:500;}
+  .etext p{color:var(--paper-dim);font-size:15px;margin-top:10px;}
+
+  .band{height:420px;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:url('downloaded_images_flat/Album-PS woodworking - 490.jpg') center/cover no-repeat;margin:88px 0;position:relative;}
+  .band::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg, rgba(15,14,13,0.75) 0%, rgba(15,14,13,0) 45%);}
+  .band .cap{position:absolute;left:32px;bottom:24px;z-index:2;font-family:'Fraunces',serif;font-size:20px;color:var(--paper);max-width:60ch;}
+
+  .mosaic-head{margin-bottom:32px;}
+  .mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .mtile{aspect-ratio:1/1;border-radius:3px;overflow:hidden;border:1px solid var(--line);background-size:cover;background-position:center;position:relative;}
+  .mtile .cap{position:absolute;left:14px;bottom:12px;right:14px;font-size:12px;color:var(--paper);opacity:0;transition:opacity .2s;}
+  .mtile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(15,14,13,0) 50%, rgba(15,14,13,0.9) 100%);opacity:0;transition:opacity .2s;}
+  .mtile:hover::after, .mtile:hover .cap{opacity:1;}
+
+  .process{background:var(--charcoal-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:88px 0;}
+  .process-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;}
+  .process-grid p{color:var(--paper-dim);font-size:16px;margin-top:16px;}
+  .process-list{display:flex;flex-direction:column;gap:0;}
+  .pstep{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--line);}
+  .pstep:last-child{border-bottom:none;}
+  .pstep .n{font-family:'Fraunces',serif;font-size:22px;color:var(--rust-bright);font-weight:600;min-width:36px;}
+  .pstep h4{font-size:16px;color:var(--paper);font-weight:600;font-family:'Inter',sans-serif;}
+  .pstep p{color:var(--paper-dim);font-size:14px;margin-top:6px;}
+
+  .testimonial{padding:96px 0;}
+  .testimonial .wrap{max-width:760px;text-align:center;}
+  .quote-mark{font-family:'Fraunces',serif;font-size:56px;color:var(--rust);line-height:1;}
+  .testimonial blockquote{font-family:'Fraunces',serif;font-size:clamp(20px,2.4vw,26px);color:var(--paper);line-height:1.4;margin:8px 0 24px;font-weight:500;}
+  .testimonial cite{font-style:normal;color:var(--paper-dim);font-size:14px;}
+  .testimonial cite b{color:var(--brass);font-weight:600;}
+
+  .more-cats{background:var(--charcoal-2);}
+  .more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .more-card{background:var(--charcoal);padding:26px;transition:background .15s;}
+  .more-card:hover{background:var(--ink);}
+  .more-card .eyebrow{font-size:11px;}
+  .more-card h4{font-size:15px;color:var(--paper);margin-top:8px;font-weight:600;font-family:'Inter',sans-serif;}
+
+  .cta-band{background:linear-gradient(120deg, #2a1a12, #1b1a18 70%);text-align:center;padding:96px 0;}
+  .cta-band h2{font-size:clamp(28px,3.6vw,40px);color:var(--paper);max-width:16ch;margin:16px auto 0;}
+  .cta-band p{color:var(--paper-dim);margin-top:16px;font-size:16px;}
+  .cta-band .hero-actions{justify-content:center;margin-top:32px;}
+
+  footer{background:var(--ink);padding:64px 0 32px;border-top:1px solid var(--line);}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;}
+  .foot-brand .logo{margin-bottom:14px;}
+  .foot-brand p{color:var(--paper-dim);font-size:14px;max-width:32ch;}
+  footer h4{font-size:13px;color:var(--paper);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;}
+  footer ul{list-style:none;margin:0;padding:0;}
+  footer li{margin-bottom:10px;}
+  footer a{color:var(--paper-dim);font-size:14px;transition:color .15s;}
+  footer a:hover{color:var(--paper);}
+  .foot-bottom{max-width:var(--maxw);margin:56px auto 0;padding:24px 32px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--paper-dim);font-size:12px;flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:1150px){
+    .process-grid{grid-template-columns:1fr;gap:32px;}
+  }
+
+  @media (max-width:900px){
+    .navlinks{display:none;}
+    .navmenu-mobile{display:block;}
+    .cat-hero-grid{grid-template-columns:1fr;gap:32px;}
+    .cat-hero-side{order:-1;}
+    .pairing{grid-template-columns:1fr 1fr;gap:12px;}
+    .erow, .erow.rev{grid-template-columns:1fr;gap:24px;}
+    .erow.rev .ephoto, .erow.rev .etext{order:0;}
+    .process{padding:64px 0;}
+    .process-grid{grid-template-columns:1fr;gap:32px;}
+    .mosaic{grid-template-columns:repeat(2,1fr);}
+    .more-grid{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .band{height:280px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo"><img src="downloaded_images_flat/new-logo-v2.png" alt="PS Woodworking"></a>
+    <nav class="navlinks">
+      <div class="nav-dropdown">
+        <a href="index.html#work" class="active">Our Work <span class="caret">▾</span></a>
+        <div class="dropdown-panel">
+          <a href="kitchens.html">Kitchens</a>
+          <a href="bars.html">Bars</a>
+          <a href="vanities.html" class="active">Custom Vanities</a>
+          <a href="fireplace-mantels.html">Fireplace Mantels</a>
+          <a href="doors-gates-windows.html">Doors, Gates &amp; Windows</a>
+          <a href="closets.html">Custom Closets</a>
+          <a href="media-centers.html">Media Centers</a>
+          <a href="offices-libraries.html">Offices &amp; Libraries</a>
+          <a href="balustrades.html">Balustrades &amp; Stairs</a>
+          <a href="miscellaneous.html">Miscellaneous</a>
+          <a href="finish-carpentry.html">Finish Carpentry</a>
+          <a href="project-myriad.html">Project Myriad</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="index.html#clients">Clients</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="nav-cta">Request a Consultation</a>
+    <button class="navmenu-mobile" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+<div class="mobile-scrim"></div>
+<div class="mobile-panel">
+  <button class="mobile-panel-close" aria-label="Close menu">✕</button>
+  <div class="mobile-links">
+    <button class="mobile-work-toggle">Our Work <span class="caret">▾</span></button>
+    <div class="mobile-subnav">
+      <div class="mobile-subnav-inner">
+        <a href="kitchens.html">Kitchens</a>
+        <a href="bars.html">Bars</a>
+        <a href="vanities.html" class="active">Custom Vanities</a>
+        <a href="fireplace-mantels.html">Fireplace Mantels</a>
+        <a href="doors-gates-windows.html">Doors, Gates &amp; Windows</a>
+        <a href="closets.html">Custom Closets</a>
+        <a href="media-centers.html">Media Centers</a>
+        <a href="offices-libraries.html">Offices &amp; Libraries</a>
+        <a href="balustrades.html">Balustrades &amp; Stairs</a>
+        <a href="miscellaneous.html">Miscellaneous</a>
+        <a href="finish-carpentry.html">Finish Carpentry</a>
+        <a href="project-myriad.html">Project Myriad</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="index.html#clients">Clients</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="contact.html" class="nav-cta mobile-cta">Request a Consultation</a>
+</div>
+
+<div class="wrap breadcrumb">
+  <a href="index.html">Home</a><span>/</span><a href="index.html#work">Our Work</a><span>/</span>Custom Vanities
+</div>
+
+<section class="cat-hero">
+  <div class="wrap cat-hero-grid">
+    <div>
+      <div class="eyebrow">Category 16 — Custom Vanities</div>
+      <h1>Furniture-grade cabinetry, built for a room that gets steam and splashes daily.</h1>
+      <div class="cat-hero-copy">
+        <p>Make over your water-closet with custom bathroom furniture. PS Woodworking builds vanities in solid Alder and Maple — finished to withstand humidity without losing the fine-furniture look.</p>
+      </div>
+      <div class="cat-meta">
+        <div class="m"><b>Solid Alder</b>Most-requested species</div>
+        <div class="m"><b>His &amp; Hers</b>Paired vanity sets</div>
+        <div class="m"><b>Faux Finishes</b>Custom Maple options</div>
+      </div>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn-primary">Discuss Your Vanity</a>
+        <a href="#gallery" class="btn-ghost">View the Gallery</a>
+      </div>
+    </div>
+    <div class="cat-hero-side"></div>
+  </div>
+</section>
+
+<section class="editorial" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Featured Project</div>
+      <h2>A his &amp; hers pair, built as a matched set.</h2>
+    </div>
+
+    <div class="pairing">
+      <div class="pair-photo" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 490.jpg');">
+        <div class="tag">His</div>
+      </div>
+      <div class="pair-photo" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 510.jpg');">
+        <div class="tag">Hers</div>
+      </div>
+    </div>
+    <div class="pairing-cap">
+      <p>Custom Alder his-and-hers vanities, built as a coordinated pair with independent storage and matched grain — proportioned individually to each side of the room.</p>
+    </div>
+
+    <div class="egrid">
+      <div class="erow">
+        <div class="ephoto" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 392.jpg');"></div>
+        <div class="etext">
+          <div class="index">01 / Master Bath</div>
+          <h3>Custom Alder vanity</h3>
+          <p>Solid Alder construction with a hand-rubbed finish selected to hold up to daily steam and splashing without losing its furniture-grade look.</p>
+        </div>
+      </div>
+
+      <div class="erow rev">
+        <div class="ephoto" style="background-image:url('downloaded_images_flat/---_0010.jpg');"></div>
+        <div class="etext">
+          <div class="index">02 / Guest Bath</div>
+          <h3>His &amp; hers Maple faux vanities</h3>
+          <p>A faux-finish technique over Maple carcasses gives the look of a reclaimed antique piece while keeping full custom storage underneath.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="cap">Custom Alder vanity — full water-closet makeover, Napa Valley</div>
+    </div>
+
+    <div class="mosaic-head section-head" style="margin-bottom:24px;">
+      <div class="eyebrow">More From This Category</div>
+    </div>
+    <div class="mosaic">
+      <div class="mtile" style="background-image:url('downloaded_images_flat/IMG_0540Copying.jpg');"><div class="cap">Custom Alder vanity</div></div>
+      <div class="mtile" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 409.jpg');"><div class="cap">Custom Alder vanity</div></div>
+      <div class="mtile" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 432.jpg');"><div class="cap">Custom Alder vanity</div></div>
+      <div class="mtile" style="background-image:url('downloaded_images_flat/AAA003.jpg');"><div class="cap">Custom Alder vanity</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap process-grid">
+    <div>
+      <div class="eyebrow">How It Works</div>
+      <h2 style="font-size:30px;color:var(--paper);margin-top:14px;">From idea to install.</h2>
+      <p>Bathrooms are unforgiving environments — humidity and daily use mean material choice matters as much as design.</p>
+    </div>
+    <div class="process-list">
+      <div class="pstep">
+        <div class="n">01</div>
+        <div><h4>Consultation &amp; Drawings</h4><p>Measure the space and talk through storage needs, style, and species — leave with a real drawing.</p></div>
+      </div>
+      <div class="pstep">
+        <div class="n">02</div>
+        <div><h4>Material Selection</h4><p>Solid Alder, Maple, or a species to match existing millwork — finished for humidity resistance.</p></div>
+      </div>
+      <div class="pstep">
+        <div class="n">03</div>
+        <div><h4>Shop-Built, Hand-Finished</h4><p>Built and finished in the shop before delivery, so cure time doesn't hold up your bathroom.</p></div>
+      </div>
+      <div class="pstep">
+        <div class="n">04</div>
+        <div><h4>Installation</h4><p>Set, leveled, and sealed on-site — coordinated with your plumber for sink and fixture cutouts.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="wrap">
+    <div class="quote-mark">"</div>
+    <blockquote>Philip is not only a talented and conscientious craftsman, he is professional, honest and fair. It was a real pleasure working with Philip, and we would highly recommend him for any custom woodworking projects.</blockquote>
+    <cite><b>Bob &amp; Kathy Bolan</b> — Angwin, California</cite>
+  </div>
+</section>
+
+<section class="more-cats">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Explore More</div>
+      <h2>Other rooms, same craftsman.</h2>
+    </div>
+    <div class="more-grid">
+      <a class="more-card" href="kitchens.html"><div class="eyebrow">Category</div><h4>Kitchens</h4></a>
+      <a class="more-card" href="balustrades.html"><div class="eyebrow">Category</div><h4>Balustrades</h4></a>
+      <a class="more-card" href="closets.html"><div class="eyebrow">Category</div><h4>Custom Closets</h4></a>
+      <a class="more-card" href="finish-carpentry.html"><div class="eyebrow">Category</div><h4>Finish Carpentry</h4></a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Start a Project</div>
+    <h2>Have a vanity in mind? Let's put it in wood.</h2>
+    <p>Consultations available for architects, designers, contractors, and homeowners across the Napa &amp; Sonoma Valley.</p>
+    <div class="hero-actions">
+      <a href="tel:7072519255" class="btn-primary">Call (707) 251-9255</a>
+      <a href="mailto:pswoodworking@sbcglobal.net" class="btn-ghost">Email the Shop</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a href="index.html" class="logo"><img src="downloaded_images_flat/new-logo-v2.png" alt="PS Woodworking"></a>
+      <p>Custom fine woodworking and finish carpentry, hand-built in Napa Valley since 1987.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="index.html#work">Our Work</a></li>
+        <li><a href="about.html">About Philip</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Specialties</h4>
+      <ul>
+        <li><a href="kitchens.html">Kitchens &amp; Bars</a></li>
+        <li><a href="doors-gates-windows.html">Doors &amp; Gates</a></li>
+        <li><a href="vanities.html">Custom Vanities</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:7072519255">(707) 251-9255</a></li>
+        <li><a href="mailto:pswoodworking@sbcglobal.net">pswoodworking@sbcglobal.net</a></li>
+        <li><a href="contact.html">PO Box 5013, Napa, CA 94581</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 PS Woodworking. CA License #771804.</span>
+    <span>Concept redesign — draft</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var openBtn = document.querySelector('.navmenu-mobile');
+    var closeBtn = document.querySelector('.mobile-panel-close');
+    var panel = document.querySelector('.mobile-panel');
+    var scrim = document.querySelector('.mobile-scrim');
+    var workToggle = document.querySelector('.mobile-work-toggle');
+    var subnav = document.querySelector('.mobile-subnav');
+
+    function openMenu(){
+      panel.style.display = 'block';
+      scrim.style.display = 'block';
+      requestAnimationFrame(function(){
+        panel.classList.add('open');
+        scrim.classList.add('open');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      scrim.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function(){
+        panel.style.display = 'none';
+        scrim.style.display = 'none';
+      }, 250);
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (scrim) scrim.addEventListener('click', closeMenu);
+    if (workToggle) workToggle.addEventListener('click', function(){
+      workToggle.classList.toggle('open');
+      subnav.classList.toggle('open');
+    });
+  })();
+</script>
+
+</body>
+</html>

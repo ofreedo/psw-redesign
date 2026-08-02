@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PS Woodworking — Custom Fine Woodworking &amp; Finish Carpentry, Napa Valley</title>
+<link rel="icon" type="image/png" href="downloaded_images_flat/new-logo-v2.png">
+<meta property="og:title" content="PS Woodworking — Custom Fine Woodworking &amp; Finish Carpentry, Napa Valley">
+<meta property="og:description" content="Old-world joinery, built by hand, in Napa Valley since 1987.">
+<meta property="og:image" content="downloaded_images_flat/new-logo-v2.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171614;
+    --charcoal:#1b1a18;
+    --charcoal-2:#232220;
+    --paper:#f4efe8;
+    --paper-dim:#cfc8bd;
+    --rust:#a8592f;
+    --rust-bright:#c66a3a;
+    --brass:#b8925a;
+    --line:rgba(244,239,232,0.14);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--charcoal);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:12px;
+    font-weight:600;
+    color:var(--brass);
+  }
+
+  /* ---- Header ---- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(27,26,24,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 32px;max-width:var(--maxw);margin:0 auto;
+  }
+  .logo{
+    display:flex;align-items:center;
+  }
+  .logo img{height:74px;width:auto;display:block;}
+  .navlinks{display:flex;gap:36px;font-size:14px;font-weight:500;list-style:none;margin:0;padding:0;}
+  .navlinks a{color:var(--paper-dim);transition:color .15s;}
+  .navlinks a:hover, .navlinks a.active{color:var(--paper);}
+  .nav-cta{
+    border:1px solid var(--brass);color:var(--paper);
+    padding:10px 20px;font-size:13px;font-weight:600;
+    letter-spacing:0.03em;border-radius:2px;
+    transition:background .15s, color .15s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--brass);color:var(--ink);}
+  .navmenu-mobile{display:none;font-size:24px;color:var(--paper);background:none;border:none;cursor:pointer;}
+
+  /* ---- Our Work dropdown (desktop) ---- */
+  .nav-dropdown{position:relative;}
+  .nav-dropdown>a{display:flex;align-items:center;gap:6px;}
+  .nav-dropdown .caret{font-size:10px;transition:transform .15s;color:var(--paper-dim);}
+  .nav-dropdown:hover .caret, .nav-dropdown:focus-within .caret{transform:rotate(180deg);}
+  .dropdown-panel{
+    position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    margin-top:18px;padding:14px;
+    background:var(--ink);border:1px solid var(--line);border-radius:4px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.45);
+    display:grid;grid-template-columns:repeat(2,180px);gap:2px;
+    opacity:0;visibility:hidden;transform:translateX(-50%) translateY(-6px);
+    transition:opacity .15s, transform .15s, visibility .15s;
+    z-index:60;
+  }
+  .nav-dropdown:hover .dropdown-panel,
+  .nav-dropdown:focus-within .dropdown-panel{
+    opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);
+  }
+  .dropdown-panel a{
+    display:block;padding:10px 12px;font-size:13px;color:var(--paper-dim);
+    border-radius:3px;transition:background .15s, color .15s;
+  }
+  .dropdown-panel a:hover{background:var(--charcoal-2);color:var(--paper);}
+  .dropdown-panel a.active{color:var(--rust-bright);}
+
+  /* ---- Mobile nav panel ---- */
+  .mobile-panel{
+    display:none;
+    position:fixed;top:0;right:0;bottom:0;width:min(320px,84vw);
+    background:var(--ink);border-left:1px solid var(--line);
+    z-index:100;padding:24px;overflow-y:auto;
+    transform:translateX(100%);transition:transform .25s ease;
+  }
+  .mobile-panel.open{transform:translateX(0);}
+  .mobile-scrim{
+    display:none;position:fixed;inset:0;background:rgba(10,9,8,0.6);z-index:90;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .mobile-scrim.open{opacity:1;}
+  .mobile-panel-close{background:none;border:none;color:var(--paper);font-size:24px;cursor:pointer;margin-bottom:24px;}
+  .mobile-links{display:flex;flex-direction:column;gap:4px;}
+  .mobile-links>a{color:var(--paper);font-size:16px;font-weight:500;padding:12px 4px;border-bottom:1px solid var(--line);}
+  .mobile-work-toggle{
+    display:flex;align-items:center;justify-content:space-between;width:100%;
+    background:none;border:none;color:var(--paper);font-size:16px;font-weight:500;
+    padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-family:'Inter',sans-serif;
+  }
+  .mobile-work-toggle .caret{font-size:11px;transition:transform .2s;}
+  .mobile-work-toggle.open .caret{transform:rotate(180deg);}
+  .mobile-subnav{
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .2s ease;
+  }
+  .mobile-subnav.open{grid-template-rows:1fr;}
+  .mobile-subnav-inner{overflow:hidden;}
+  .mobile-subnav a{
+    display:block;padding:10px 4px 10px 16px;font-size:14px;color:var(--paper-dim);
+  }
+  .mobile-subnav a.active{color:var(--rust-bright);}
+  .mobile-cta{margin-top:20px;}
+
+  /* ---- Hero ---- */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;align-items:flex-end;
+    background:
+      linear-gradient(180deg, rgba(20,19,17,0.35) 0%, rgba(15,14,13,0.55) 55%, rgba(12,11,10,0.92) 100%),
+      url('downloaded_images_flat/Album-PS woodworking - 392.jpg') center/cover no-repeat;
+  }
+  .hero-inner{
+    max-width:var(--maxw);margin:0 auto;padding:0 32px 80px;width:100%;
+  }
+  .hero h1{
+    font-size:clamp(40px,6vw,68px);
+    line-height:1.04;
+    color:var(--paper);
+    max-width:16ch;
+    margin-top:18px;
+  }
+  .hero h1 em{
+    font-style:italic;color:var(--rust-bright);
+  }
+  .hero p{
+    max-width:52ch;font-size:18px;color:var(--paper-dim);
+    margin-top:20px;
+  }
+  .hero-ctas{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--rust);color:var(--paper);
+    padding:15px 30px;font-size:14px;font-weight:600;
+    letter-spacing:0.03em;border-radius:2px;
+    transition:background .15s;
+  }
+  .btn-primary:hover{background:var(--rust-bright);}
+  .btn-ghost{
+    border:1px solid rgba(244,239,232,0.35);color:var(--paper);
+    padding:15px 30px;font-size:14px;font-weight:600;
+    letter-spacing:0.03em;border-radius:2px;
+    transition:border-color .15s, background .15s;
+  }
+  .btn-ghost:hover{border-color:var(--paper);background:rgba(244,239,232,0.06);}
+
+  /* ---- Credibility strip ---- */
+  .credstrip{
+    background:var(--ink);border-bottom:1px solid var(--line);
+    padding:26px 0;
+  }
+  .credstrip .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:18px 40px;
+  }
+  .credstrip .label{font-size:12px;color:var(--paper-dim);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;}
+  .credlogos{display:flex;gap:34px;flex-wrap:wrap;font-family:'Fraunces',serif;font-size:16px;color:var(--paper-dim);letter-spacing:0.02em;}
+  .credlogos b{color:var(--paper);font-weight:600;}
+
+  /* ---- Section shell ---- */
+  section{padding:100px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px);color:var(--paper);margin-top:14px;line-height:1.15;}
+  .section-head p{color:var(--paper-dim);font-size:16px;margin-top:16px;}
+
+  /* ---- Craft / About ---- */
+  .about{background:var(--charcoal-2);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .about-photo{
+    aspect-ratio:4/5;border-radius:3px;overflow:hidden;
+    background:url('downloaded_images_flat/web.jpg') center/cover no-repeat;
+    border:1px solid var(--line);
+  }
+  .about-copy p{color:var(--paper-dim);font-size:16px;margin-top:18px;}
+  .about-copy p:first-of-type{margin-top:0;}
+  .stat-row{display:flex;gap:44px;margin-top:38px;}
+  .stat b{display:block;font-family:'Fraunces',serif;font-size:34px;color:var(--rust-bright);font-weight:600;}
+  .stat span{display:block;font-size:13px;color:var(--paper-dim);margin-top:4px;letter-spacing:0.02em;}
+
+  /* ---- Services grid ---- */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--charcoal);padding:30px 26px;min-height:150px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:background .15s;
+  }
+  .service-card:hover{background:var(--charcoal-2);}
+  .service-card h3{font-size:17px;color:var(--paper);font-weight:600;font-family:'Inter',sans-serif;}
+  .service-card .num{font-size:12px;color:var(--rust-bright);font-weight:600;letter-spacing:0.05em;}
+  .service-card .arrow{align-self:flex-end;color:var(--paper-dim);font-size:18px;}
+
+  /* ---- Gallery ---- */
+  .gallery{background:var(--charcoal-2);}
+  .gallery-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:280px 280px;gap:14px;
+  }
+  .gallery-grid .g1{grid-row:1/3;}
+  .gtile{
+    position:relative;overflow:hidden;border-radius:3px;border:1px solid var(--line);
+    background-size:cover;background-position:center;
+  }
+  .gtile::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(15,14,13,0) 40%, rgba(15,14,13,0.85) 100%);
+  }
+  .gtile .cap{
+    position:absolute;left:18px;bottom:16px;right:18px;z-index:2;
+    font-size:14px;color:var(--paper);font-weight:500;
+  }
+  .gtile .cap small{display:block;color:var(--brass);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;}
+
+  /* ---- Testimonial ---- */
+  .testimonial{
+    background:var(--ink);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .testimonial .wrap{max-width:820px;text-align:center;}
+  .quote-mark{font-family:'Fraunces',serif;font-size:64px;color:var(--rust);line-height:1;}
+  .testimonial blockquote{
+    font-family:'Fraunces',serif;font-size:clamp(22px,2.8vw,30px);
+    color:var(--paper);line-height:1.4;margin:10px 0 28px;font-weight:500;
+  }
+  .testimonial cite{font-style:normal;color:var(--paper-dim);font-size:14px;letter-spacing:0.02em;}
+  .testimonial cite b{color:var(--brass);font-weight:600;}
+
+  /* ---- CTA band ---- */
+  .cta-band{
+    background:linear-gradient(120deg, #2a1a12, #1b1a18 70%);
+    text-align:center;
+  }
+  .cta-band h2{font-size:clamp(30px,4vw,44px);color:var(--paper);max-width:16ch;margin:16px auto 0;}
+  .cta-band p{color:var(--paper-dim);margin-top:16px;font-size:16px;}
+  .cta-band .hero-ctas{justify-content:center;margin-top:32px;}
+
+  /* ---- Footer ---- */
+  footer{background:var(--ink);padding:64px 0 32px;border-top:1px solid var(--line);}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;}
+  .foot-brand .logo{margin-bottom:14px;}
+  .foot-brand p{color:var(--paper-dim);font-size:14px;max-width:32ch;}
+  footer h4{font-size:13px;color:var(--paper);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;}
+  footer ul{list-style:none;margin:0;padding:0;}
+  footer li{margin-bottom:10px;}
+  footer a{color:var(--paper-dim);font-size:14px;transition:color .15s;}
+  footer a:hover{color:var(--paper);}
+  .foot-bottom{
+    max-width:var(--maxw);margin:56px auto 0;padding:24px 32px 0;
+    border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;color:var(--paper-dim);font-size:12px;
+    flex-wrap:wrap;gap:10px;
+  }
+
+  @media (max-width:900px){
+    .navlinks{display:none;}
+    .navmenu-mobile{display:block;}
+    .about-grid{grid-template-columns:1fr;gap:36px;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px 220px;}
+    .gallery-grid .g1{grid-row:auto;grid-column:1/3;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo"><img src="downloaded_images_flat/new-logo-v2.png" alt="PS Woodworking"></a>
+    <nav class="navlinks">
+      <div class="nav-dropdown">
+        <a href="#work">Our Work <span class="caret">▾</span></a>
+        <div class="dropdown-panel">
+          <a href="kitchens.html">Kitchens</a>
+          <a href="bars.html">Bars</a>
+          <a href="vanities.html">Custom Vanities</a>
+          <a href="fireplace-mantels.html">Fireplace Mantels</a>
+          <a href="doors-gates-windows.html">Doors, Gates &amp; Windows</a>
+          <a href="closets.html">Custom Closets</a>
+          <a href="media-centers.html">Media Centers</a>
+          <a href="offices-libraries.html">Offices &amp; Libraries</a>
+          <a href="balustrades.html">Balustrades &amp; Stairs</a>
+          <a href="miscellaneous.html">Miscellaneous</a>
+          <a href="finish-carpentry.html">Finish Carpentry</a>
+          <a href="project-myriad.html">Project Myriad</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="#clients">Clients</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="nav-cta">Request a Consultation</a>
+    <button class="navmenu-mobile" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+<div class="mobile-scrim"></div>
+<div class="mobile-panel">
+  <button class="mobile-panel-close" aria-label="Close menu">✕</button>
+  <div class="mobile-links">
+    <button class="mobile-work-toggle">Our Work <span class="caret">▾</span></button>
+    <div class="mobile-subnav">
+      <div class="mobile-subnav-inner">
+        <a href="kitchens.html">Kitchens</a>
+        <a href="bars.html">Bars</a>
+        <a href="vanities.html">Custom Vanities</a>
+        <a href="fireplace-mantels.html">Fireplace Mantels</a>
+        <a href="doors-gates-windows.html">Doors, Gates &amp; Windows</a>
+        <a href="closets.html">Custom Closets</a>
+        <a href="media-centers.html">Media Centers</a>
+        <a href="offices-libraries.html">Offices &amp; Libraries</a>
+        <a href="balustrades.html">Balustrades &amp; Stairs</a>
+        <a href="miscellaneous.html">Miscellaneous</a>
+        <a href="finish-carpentry.html">Finish Carpentry</a>
+        <a href="project-myriad.html">Project Myriad</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="#clients">Clients</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="contact.html" class="nav-cta mobile-cta">Request a Consultation</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Napa Valley — Since 1987</div>
+    <h1>Old-world joinery, <em>built by hand,</em> made to outlast you.</h1>
+    <p>PS Woodworking is a one-man, hands-on custom shop specializing in fine furniture, cabinetry, and architectural finish carpentry — from kitchens and bars to staircases, gates, and wine rooms.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">View the Work</a>
+      <a href="contact.html" class="btn-ghost">Request a Consultation</a>
+    </div>
+  </div>
+</section>
+
+<div class="credstrip">
+  <div class="wrap">
+    <div class="label">Trusted by</div>
+    <div class="credlogos">
+      <span><b>Getty Center</b> Museum</span>
+      <span><b>Coppola</b> Winery</span>
+      <span><b>Harlan</b> Estate</span>
+      <span><b>Grgich Hills</b> Winery</span>
+      <span><b>Mezzetta</b> Foods</span>
+    </div>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo"></div>
+    <div class="about-copy">
+      <div class="eyebrow">About Philip Snyder</div>
+      <h2 style="font-size:34px;color:var(--paper);margin-top:14px;">Nearly four decades at the bench.</h2>
+      <p>Philip Snyder started working professionally with wood in 1987, apprenticing under master woodworker Mark Schoettlin. That grounding in old-world joinery — mortise & tenon, dovetail — still drives every piece that leaves the shop.</p>
+      <p>PS Woodworking blends traditional hand-tool technique with modern machinery to strike a balance of artistic form, function, and durability — from utilitarian cabinetry to furniture-grade fine woodworking and full architectural trim packages.</p>
+      <div class="stat-row">
+        <div class="stat"><b>35+</b><span>Years in the craft</span></div>
+        <div class="stat"><b>16</b><span>Specialties, one shop</span></div>
+        <div class="stat"><b>CA</b><span>Lic. #771804</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What We Build</div>
+      <h2>One craftsman. Every room in the house.</h2>
+      <p>From structural staircases to a single custom vanity, every project gets the same hand-cut joinery and finish-grade attention.</p>
+    </div>
+    <div class="services-grid">
+      <a class="service-card" href="kitchens.html"><span class="num">01</span><h3>Kitchens</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="bars.html"><span class="num">02</span><h3>Bars</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="vanities.html"><span class="num">03</span><h3>Custom Vanities</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="fireplace-mantels.html"><span class="num">04</span><h3>Fireplace Mantels</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="doors-gates-windows.html"><span class="num">05</span><h3>Doors, Gates &amp; Windows</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="closets.html"><span class="num">06</span><h3>Custom Closets</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="media-centers.html"><span class="num">07</span><h3>Media Centers</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="offices-libraries.html"><span class="num">08</span><h3>Offices &amp; Libraries</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="balustrades.html"><span class="num">09</span><h3>Balustrades &amp; Stairs</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="miscellaneous.html"><span class="num">10</span><h3>Miscellaneous</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="finish-carpentry.html"><span class="num">11</span><h3>Finish Carpentry</h3><span class="arrow">→</span></a>
+      <a class="service-card" href="project-myriad.html"><span class="num">12</span><h3>Project Myriad</h3><span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><a href="recent-projects.html" style="color:var(--brass);">Recent Projects</a></div>
+      <h2>The work speaks first.</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gtile g1" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 409.jpg');">
+        <div class="cap"><small>Custom Vanities</small>Master bath, hand-finished walnut</div>
+      </div>
+      <div class="gtile" style="background-image:url('downloaded_images_flat/IMG_0136.jpg');">
+        <div class="cap"><small>Fireplace Mantels</small>Carved surround, St. Helena</div>
+      </div>
+      <div class="gtile" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 432.jpg');">
+        <div class="cap"><small>Vanities</small>Furniture-grade cabinetry</div>
+      </div>
+      <div class="gtile" style="background-image:url('downloaded_images_flat/ps_2011_05_24___18_21_11.jpg');">
+        <div class="cap"><small>Mantels</small>Reclaimed timber mantel</div>
+      </div>
+      <div class="gtile" style="background-image:url('downloaded_images_flat/Album-PS woodworking - 490.jpg');">
+        <div class="cap"><small>Vanities</small>Traditional-style build-out</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial" id="testimonials">
+  <div class="wrap">
+    <div class="quote-mark">"</div>
+    <blockquote>I have called on PS Woodworking for several projects over the years. No matter how big or how small the job, they always over deliver on quality, professionalism and service. Philip is the Yoda of woodworking.</blockquote>
+    <cite><b>Heather Innocenti</b> — Director of Marketing, Mezzetta Specialty Foods</cite>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Notable Clients</div>
+      <h2>Work trusted by architects, restaurateurs &amp; vintners.</h2>
+    </div>
+    <div class="services-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Getty Center Museum</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Francis Ford Coppola</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Harlan Estate</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Grgich Hills Winery</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Kirkland Winery</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Cosentino Winery</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Mustards Restaurant</h3></div>
+      <div class="service-card" style="cursor:default;"><h3 style="font-family:'Fraunces',serif;font-weight:600;">Mezzetta Foods</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Start a Project</div>
+    <h2>Have a vision? Let's put it in wood.</h2>
+    <p>Consultations available for architects, designers, contractors, and homeowners across the Napa &amp; Sonoma Valley.</p>
+    <div class="hero-ctas">
+      <a href="tel:7072519255" class="btn-primary">Call (707) 251-9255</a>
+      <a href="mailto:pswoodworking@sbcglobal.net" class="btn-ghost">Email the Shop</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a href="index.html" class="logo"><img src="downloaded_images_flat/new-logo-v2.png" alt="PS Woodworking"></a>
+      <p>Custom fine woodworking and finish carpentry, hand-built in Napa Valley since 1987.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#work">Our Work</a></li>
+        <li><a href="about.html">About Philip</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Specialties</h4>
+      <ul>
+        <li><a href="kitchens.html">Kitchens &amp; Bars</a></li>
+        <li><a href="doors-gates-windows.html">Doors &amp; Gates</a></li>
+        <li><a href="vanities.html">Custom Vanities</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:7072519255">(707) 251-9255</a></li>
+        <li><a href="mailto:pswoodworking@sbcglobal.net">pswoodworking@sbcglobal.net</a></li>
+        <li><a href="contact.html">PO Box 5013, Napa, CA 94581</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 PS Woodworking. CA License #771804.</span>
+    <span>Concept redesign — draft</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var openBtn = document.querySelector('.navmenu-mobile');
+    var closeBtn = document.querySelector('.mobile-panel-close');
+    var panel = document.querySelector('.mobile-panel');
+    var scrim = document.querySelector('.mobile-scrim');
+    var workToggle = document.querySelector('.mobile-work-toggle');
+    var subnav = document.querySelector('.mobile-subnav');
+
+    function openMenu(){
+      panel.style.display = 'block';
+      scrim.style.display = 'block';
+      requestAnimationFrame(function(){
+        panel.classList.add('open');
+        scrim.classList.add('open');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu(){
+      panel.classList.remove('open');
+      scrim.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function(){
+        panel.style.display = 'none';
+        scrim.style.display = 'none';
+      }, 250);
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (scrim) scrim.addEventListener('click', closeMenu);
+    if (workToggle) workToggle.addEventListener('click', function(){
+      workToggle.classList.toggle('open');
+      subnav.classList.toggle('open');
+    });
+  })();
+</script>
+
+</body>
+</html>
